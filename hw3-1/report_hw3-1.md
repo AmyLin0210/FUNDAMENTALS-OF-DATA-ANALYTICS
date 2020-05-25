@@ -71,3 +71,13 @@
 ----
 
 ## How did you improve your classifiers ?
+
+在最開始的時候測試各種不同的 data-preprocess 方式，
+發現原始資料很多 noisy，例如說 Volumn 後來我不打算放進 model 的原因，
+就是因為變化的幅度太大，實驗結果發現與上升下跌的關係不大。
+
+再來的話就是開始條參數，例如 nn 的 learning rate、多少 Neural、幾個 batch 之類的，
+主要努力的部分還是放在研究 data-preprocess
+
+
+
