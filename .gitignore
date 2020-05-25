@@ -5,3 +5,6 @@ venv
 
 # ignore all ppt
 *.pptx
+
+# ignore ipynb_checkpoints
+.ipynb_checkpoints
