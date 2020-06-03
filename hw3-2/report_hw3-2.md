@@ -43,15 +43,26 @@ y 軸為累計的比例，
 **Reasonable problem**
 由各種數據去判斷使用者是否會購買
 
-**predict the result**
-使用 **LogisticRegression** 
-- **Input** 
+**predict the result** 
+
+- **Data Preprocess**
+將非數值資料轉化為數值
+    - Month: ['Jan', 'Feb' ... , 'Dec'] -> 1 ~ 12 
+    - Weekend: True: 1, False: 0
+    - VisitorType: New: 0, Return: 1, Other: 2
+
+- **Input** (全部資料都放進去)
+    - Month
+    - Weekend
+    - VisitorType
     - OperatingSystems
     - Browser
     - Region 
     - TrafficType
     - SpecialDay
+    - Administrative
     - Administrative_Duration
+    - Informational
     - Informational_Duration 
     - ProductRelated 
     - ProductRelated_Duration
@@ -59,18 +70,71 @@ y 軸為累計的比例，
     - ExitRates
     - PageValues
 - **Result**
-    - accuracy: 0.88
-    - confusion matrix:
-        ![](https://i.imgur.com/Q9rZWek.png)
-
+    - LogisticRegression
+        - train accuracy: 0.880575
+        - test  accuracy: acc: 0.8844282
+        - confusion matrix:
+        ![](https://i.imgur.com/86rzmft.png)
+    - RandomForest
+        - train accuracy: 1.0
+        - test  accuracy: acc: 0.903487
+        - confusion matrix:
+        ![](https://i.imgur.com/u8Mkymw.png)
 
 ----
 
+## Explain how you improved your results step-by-step
 
+#### Origin Result:
+- LogisticRegression
+    - train accuracy: 0.880575
+    - test  accuracy: acc: 0.8844282
+    - confusion matrix:
+    ![](https://i.imgur.com/86rzmft.png)
+- RandomForest
+    - train accuracy: 1.0
+    - test  accuracy: acc: 0.903487
+    - confusion matrix:
+    ![](https://i.imgur.com/u8Mkymw.png)
 
+----
 
+## imporvement 1
+- **reason**
+最開始我把所有資料都直接丟進 model ，當中可能有 noise
+- **approaches**
+嘗試著減少丟進去的資料，只丟影響較大的
+- **imporvement**
+    可以看到 Logistic Regression 的部分有變好一點
+    - input:
+        - Month
+        - Weekend
+        - VisitorType
+        - BounceRates
+        - ExitRates
+        - PageValues
+    - result
+    ![](https://i.imgur.com/nQkq0hP.png)
+    
+----
 
+### imporvement 2
 
-
-
+- **reason**
+random forest overfitting
+- **approaches**
+改變 model 的參數
+    - max_leaf_nodes: 限制 leaf 的數量，不要使其分得太細
+    - min_samples_split: 超過一定數量才能夠分 leaf，原因同上
+- **imporvement**
+可以看到 RandomForest 的 accuracy 增加了
+    - input:
+        - Month
+        - Weekend
+        - VisitorType
+        - BounceRates
+        - ExitRates
+        - PageValues
+    - result
+    ![](https://i.imgur.com/dShnia0.png)
 
